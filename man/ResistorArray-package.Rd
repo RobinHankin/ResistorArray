@@ -3,30 +3,23 @@
 \alias{ResistorArray}
 \docType{package}
 \title{
-Electrical properties of resistor networks
+\packageTitle{ResistorArray}
 }
 \description{
-Electrical properties of resistor networks such as the resistance
-between any two nodes and the current that passes along any wire
+\packageDescription{ResistorArray}
 }
 \details{
-\tabular{ll}{
-Package: \tab ResistorArray\cr
-Type: \tab Package\cr
-Version: \tab 1.0\cr
-Date: \tab 2007-01-23\cr
-License: \tab GPL\cr
-}
-The package uses matrix methods to determine resistances between nodes
-of a resistor network.  
+The DESCRIPTION file:
+\packageDESCRIPTION{ResistorArray}
+\packageIndices{ResistorArray}
+
 }
 \author{
-Robin K. S. Hankin
-
-Maintainer: <hankin.robin@gmail.com>
+\packageAuthor{ResistorArray}
 }
 \references{
-Rnews 2006.
+R.K.S. Hankin 2006. "Resistor networks in R: introducing the 'ResistorArray' package".
+R News, volume 6, number 2.
 }
 \keyword{ package }
 \examples{
