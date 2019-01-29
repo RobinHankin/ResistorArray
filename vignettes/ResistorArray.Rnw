@@ -157,7 +157,7 @@ partitioned matrix equation:
 Straightforward matrix algebra gives
 \begin{eqnarray}
   \bv^u = \mathbf{C}^{-1}\left(\bi^k-\mathbf{B}^\prime\bv^k\right)\label{vu}\\
-  \bi^k = \left(\mathbf{A}
+  \bi^u = \left(\mathbf{A}
   -\mathbf{B}\mathbf{C}^{-1}\mathbf{B}^\prime\right)\bv^k +
   \mathbf{B}\mathbf{C}^{-1}\bi^k\label{iu}
 \end{eqnarray}
