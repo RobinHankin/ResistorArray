@@ -1,0 +1,23 @@
+citHeader("To cite in publications use:")
+
+citEntry(entry = "Article",
+	 title = {
+           paste("Resistor networks in R: introducing the 'ResistorArray' package")
+           },
+	 author = personList(
+         person(given = c("Robin", "K. S."),
+		family = "Hankin",
+		email="hankin.robin@gmail.com")),
+	 journal = "R News",
+         year = "2006",
+	 volume = "6",
+	 issue = "2",
+	 textVersion = {
+             paste("R. K. S. Hankin",
+                   "2006.",
+                   "Resistor networks in R: introducing the 'ResistorArray' package",
+	     	   "R News",
+		   "6(2)"
+		   )
+         }
+         )
