@@ -20,6 +20,7 @@ function (x.offset, y.offset, rows.of.resistors, cols.of.resistors,
         return(resistance(A, current.in.1d, current.out.1d, give.pots = FALSE))
     }
 }
+
 "circuit" <-
 function (L, v, currents = 0, use.inverse = FALSE, give.internal = FALSE) 
 {
@@ -52,6 +53,7 @@ function (L, v, currents = 0, use.inverse = FALSE, give.internal = FALSE)
         return(out)
     }
 }
+
 "cube" <-
 function (x = 1) 
 {
@@ -61,6 +63,7 @@ function (x = 1)
     diag(out) <- -apply(out, 2, sum)
     out
 }
+
 "currents" <-
 function (L, earth.node, input.node) 
 {
@@ -71,6 +74,7 @@ function (L, earth.node, input.node)
         give.pots = TRUE)
     cbind(edges, (volts[edges[, 1]] - volts[edges[, 2]]) * L[edges])
 }
+
 "currents.matrix" <-
 function (L, earth.node, input.node) 
 {
@@ -79,6 +83,7 @@ function (L, earth.node, input.node)
     out <- L * (out - t(out))
     out
 }
+
 "dodecahedron" <-
 function (x = 1) 
 {
@@ -93,6 +98,7 @@ function (x = 1)
 {
     (colnum - 1) * R + rownum
 }
+
 "icosahedron" <-
 function (x = 1) 
 {
@@ -102,6 +108,7 @@ function (x = 1)
     diag(out) <- -apply(out, 2, sum)
     return(out)
 }
+
 "ladder" <-
 function (n, x = 1, y = 1, z = NULL) 
 {
@@ -134,11 +141,11 @@ function (R, C)
     out[1 , RC] <- -1
     out[RC,  1] <- -1
     
-    return(out)
-  
+    return(out)  
 }
 
-"makefullmatrix_strict" <- function(R,C, toroidal)
+"makefullmatrix_strict" <-
+function(R,C, toroidal)
 {
     RC <- R*C
     jj <- as.vector(matrix(seq_len(RC),R,C)[-R,])
@@ -161,8 +168,6 @@ function (R, C)
     diag(out) <- -rowSums(out)
     return(out)
 }
-    
-
       
 "octahedron" <-
 function (x = 1) 
@@ -173,6 +178,7 @@ function (x = 1)
     diag(out) <- -apply(out, 2, sum)
     return(out)
 }
+
 "platonic" <-
 function (a) 
 {
@@ -191,6 +197,7 @@ function (a)
         5, 6, 9, 4, 6, 7, 7, 8, 10, 8, 9, 11, 7, 9, 12, 10, 12, 
         10, 11, 11, 12, 11, 12, 12), ncol = 2))
 }
+
 "resistance" <-
 function (A, earth.node, input.node, current.input.vector = NULL,
            give.pots = FALSE) 
@@ -212,6 +219,7 @@ function (A, earth.node, input.node, current.input.vector = NULL,
         return(potentials[input.node])
     }
 }
+
 "series" <-
 function (x) 
 {
@@ -223,6 +231,7 @@ function (x)
     diag(out) <- -apply(out, 2, sum)
     out
 }
+
 "tetrahedron" <-
 function (x = 1) 
 {
@@ -232,6 +241,7 @@ function (x = 1)
     diag(out) <- -apply(out, 2, sum)
     out
 }
+
 "Wu" <-
 function (L) 
 {
