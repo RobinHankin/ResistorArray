@@ -1,0 +1,9 @@
+Package: ResistorArray
+Version: 1.0-31
+Date: 9 May 2007
+Title: Electrical Properties of Resistor Networks
+Author: Robin K. S. Hankin
+Description: electrical properties of resistor networks.
+Maintainer: "Robin K. S. Hankin" <hankin.robin@gmail.com>
+License: GPL-2
+

@@ -1,0 +1,213 @@
+\documentclass[nojss]{jss}
+
+\usepackage{amsfonts,amsmath,amssymb}
+
+
+
+
+%\VignetteIndexEntry{ResistorArray: resistor networks in R}
+%\VignetteDepends{ResistorArray}
+%\VignetteKeywords{ResistorArray, resistors}
+%\VignettePackage{ResistorArray}
+
+
+
+
+%% just as usual
+\author{Robin K. S. Hankin}
+\title{Resistor networks in R: the ResistorArray package}
+%\VignetteIndexEntry{ResistorArray: resistor networks in R}
+%\VignetteDepends{ResistorArray}
+%\VignetteKeywords{ResistorArray, resistors}
+%\VignettePackage{ResistorArray}
+%% for pretty printing and a nice hypersummary also set:
+%% \Plainauthor{Achim Zeileis, Second Author} %% comma-separated
+\Plaintitle{Resistor networks in R: the ResistorArray package}
+%% an abstract and keywords
+\Abstract{
+This paper introduces the \pkg{ResistorArray} package of \proglang{R}
+routines, for analysis of resistor networks.  An earlier version of
+this vignette was published as~\citet{hankin2006}.  }
+\Keywords{Resistors, Resistor Arrays}
+\Address{
+  Robin K. S. Hankin\\
+  Auckland University of Technology\\
+  2-14 Wakefield Street\\
+  Auckland\\
+  New Zealand\\
+  E-mail: \email{hankin.robin@gmail.com}
+  }
+%% need no \usepackage{Sweave.sty}
+\SweaveOpts{echo=FALSE}
+\begin{document}
+\newcommand{\bu}{\mathbf{u}}
+\newcommand{\bv}{\mathbf{v}}
+\newcommand{\bi}{\mathbf{i}}
+
+Many elementary physics courses show how resistors combine in series
+and parallel (Figure~\ref{series_and_parallel}); the equations are
+\begin{eqnarray}
+  R_\mathrm{series}   &=& R_1 + R_2 \label{series}\\
+  R_\mathrm{parallel} &=& \frac{1}{R_1^{-1} + R_2^{-1}}\label{parallel}
+\end{eqnarray}
+
+However, these rules break down for many systems such as the
+Wheatstone bridge (Figure~\ref{wheatstone}); the reader who doubts
+this should attempt to apply equations~\ref{series} and~\ref{parallel}
+and find the resistance between nodes~1 and~4 in the general case.
+This paper introduces \pkg{ResistorArray}, an
+\proglang{R}~\citep{rcore2012} package to determine resistances and
+other electrical properties of such networks.
+
+\begin{figure}[htbp]
+  \begin{center}
+    \includegraphics[width=8cm]{series_and_parallel.pdf}
+    \caption{Two resistors in series
+      (top)\label{series_and_parallel} and parallel (bottom)}
+  \end{center}
+\end{figure}
+
+
+\begin{figure}[htbp]
+  \begin{center}
+    \includegraphics[width=8cm]{wheatstone.pdf}
+    \caption{The Wheatstone bridge\label{wheatstone}}
+  \end{center}
+\end{figure}
+
+Although this paper uses the language of electrical engineering, the
+problem considered is clearly very general: many systems are composed
+of isolated nodes between which some quantity flows and the steady
+states of such systems are generally of interest.
+Package \pkg{ResistorArray} has been applied to such diverse problems as the
+diffusion of nutrients among fungal hyphae networks, the propagation
+of salinity between (moored) oceanographical buoys, and hydraulic
+systems such as networks of sewage pumps.
+The general problem of determining the resistance between two nodes of
+a resistor network requires matrix techniques.
+Consider a network of $n$ nodes, with node $i$ connected to node $j$
+by a resistor of resistance~$R_{ij}$. Then the network has a
+``conductance matrix''   $\mathcal{L}$ with
+\begin{equation}\label{Ldef}
+  \mathcal{L}_{ij} = 
+  \begin{cases}
+      -1/R_{ij}             &   \mbox{if } i\neq j\\
+      \sum_{k\neq j}1/R_{kj} &   \mbox{if } i    =j
+  \end{cases}
+\end{equation}
+
+Thus~$\mathcal{L}$ is a symmetrical matrix, whose row sums and column
+sums are zero (and is therefore singular).
+Then the analogue of Ohm's law (viz $V = IR$) would be
+\begin{equation}\label{matrixeqn}
+\mathcal{L}\mathbf{v}=\mathbf{i}
+\end{equation}
+
+where~$\mathbf{v} = \left(v_1,\ldots, v_n\right)$ is a vector of
+potentials and~$\mathbf{i} = \left(i_1,\ldots, i_n\right)$ is a vector
+of currents; here~$i_p$ is the current flow in to node
+$p$. Equation~\ref{matrixeqn} is thus a restatement of the fact that
+charge does not accumulate at any node.  Each node of the circuit may
+either be fed a known current\footnote{This would include a zero
+  current: in the case of the Wheatstone bridge of
+  Figure~\ref{wheatstone}, nodes~2 and 3 have zero current flux
+  so~$i_2$ and~$i_3$ are known and set to zero.}  and we have to
+calculate its potential; or it is maintained at a known potential and
+we have to calculate the current flux into that node to maintain that
+potential. There are thus $n$ unknowns altogether.  Thus some elements
+of~$\bv$ and $\bi$ are known and some are unknown.  Without loss of
+generality, we may partition these vectors into known and unknown
+parts: $\bv^\prime=\left( {\bv^k}^\prime,
+{\bv^{u\vphantom{k}}}^\prime\right)$
+and~$\bi^\prime=\left({\bi^{u\vphantom{k}}}^\prime,
+{\bi^k}^\prime\right)$.  Thus the known elements of $\bv$ are $\bv^k =
+\left(v_1,\ldots,v_p\right)'$: these would correspond to nodes that
+are maintained at a specified potential; the other elements $\bv^u
+=\left(v_{p+1},\ldots,v_n\right)'$ correspond to nodes that are at an
+unknown potential that we have to calculate.  The current vector $\bi$
+may similarly be decomposed, but in a conjugate fashion; thus elements
+$\bi^u = \left(i_1,\ldots,i_p\right)'$ correspond to nodes that
+require a certain, unknown, current to be fed into them to maintain
+potentials $\bv^k$; the other elements $\bi^k = \left(i_{p+1},\ldots,
+i_n\right)'$ would correspond to nodes that have a known current
+flowing into them and whose potential we seek.
+Equation~\ref{matrixeqn} may thus be expressed in terms of a suitably
+partitioned matrix equation:
+
+\begin{equation}
+  \left(
+  \begin{array}{cc}
+    \mathbf{A}       & \mathbf{B}\\
+    \mathbf{B}^\prime  & \mathbf{C}
+  \end{array}
+  \right)\left(
+  \begin{array}{cc}
+    \bv^k\\\bv^u
+  \end{array}
+  \right)=
+  \left(
+  \begin{array}{cc}
+    \bi^u\\\bi^k
+  \end{array}
+  \right)
+\end{equation}
+\noindent where, in R idiom, \verb+ A=L[1:p,1:p]+,
+\code{B=L[1:p,(p+1):n]}, and \code{C=L[(p+1):n,(p+1):n]}.
+    
+Straightforward matrix algebra gives
+\begin{eqnarray}
+  \bv^u = \mathbf{C}^{-1}\left(\bi^k-\mathbf{B}^\prime\bv^k\right)\label{vu}\\
+  \bi^k = \left(\mathbf{A}
+  -\mathbf{B}\mathbf{C}^{-1}\mathbf{B}^\prime\right)\bv^k +
+  \mathbf{B}\mathbf{C}^{-1}\bi^k\label{iu}
+\end{eqnarray}
+Equations~\ref{vu} and~\ref{iu} are implemented by \verb+circuit()+.
+ \section{Package ResistorArray in use}
+
+Consider the Wheatstone Bridge, illustrated in
+Figure~\ref{wheatstone}.  Here the resistance between node~1 and
+node~4 is calculated; all resistances are~$1\,\Omega$ except $R_{34}$,
+which is~$2\,\Omega$. This resistor array may be viewed as a skeleton
+tetrahedron, with edge~1 missing.  We may thus use function
+\verb+tetrahedron()+ to generate the conductance matrix; this is
+
+<<rra,echo=FALSE,print=FALSE>>=
+require(ResistorArray)
+@ 
+
+<<bit1,echo=TRUE,print=TRUE>>=
+L <- tetrahedron(c(1, 1, Inf, 1, 1, 2))
+@ 
+
+Observe that \verb+L[1,4]==L[4,1]==0+, as required.  The resistance
+may be determined by function \verb+circuit()+; there are several
+equivalent methods.  Here node~1 is earthed---by setting it to zero
+volts---and the others are given a floating potential; viz
+\verb+v=c(0,NA,NA,NA)+.  Then one amp is fed in to node~4, zero amps
+to nodes 2 and 3, and node 1 an unknown current, to be determined; viz
+\verb+currents=c(NA,0,0,1)+.  The node 1-to-node 4 resistance will
+then be given by the potential at node 4:
+
+<<bit2,echo=TRUE,print=TRUE>>=
+circuit(L,v=c(0, NA, NA, NA),currents=c(NA, 0, 0, 1))
+@ 
+
+
+Thus the resistance is about~$1.181818\,\Omega$, comparing well with the
+theoretical value of $117/99\,\Omega$.  Note that the system correctly
+returns the net current required to maintain node 1 at $0\,V$ as $-1\,A$
+(which is clear from conservation of charge).  The potential
+difference between nodes~2 and 3 indicates a nonzero current flow
+along~$R_{23}$; currents through each resistor are returned by function
+\verb+circuit()+ if argument \verb+give.internal+ is set to \verb+TRUE+.
+Package \pkg{ResistorArray} solves a problem that is frequently
+encountered in electrical engineering: determining the electrical
+properties of resistor networks.  The techniques presented here are
+applicable to many systems composed of isolated nodes between which
+some quantity flows; the steady states of such systems generally have
+an electrical analogue.  This paper explicitly presents a vectorized
+solution method that uses standard numerical techniques, and
+discusses the corresponding R idiom.
+
+\bibliography{resistors}
+\end{document}

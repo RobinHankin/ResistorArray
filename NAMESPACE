@@ -1,0 +1,4 @@
+export(array.resistance, circuit, cube, currents, currents.matrix,
+dodecahedron, .get.1d.index, icosahedron, ladder, makefullmatrix,
+makefullmatrix_strict, octahedron, platonic, resistance, series,
+tetrahedron, Wu, hypercube)
