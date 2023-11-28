@@ -59,7 +59,7 @@ resistance(A, earth.node, input.node, current.input.vector=NULL, give.pots = FAL
     pp1000-1004.
     
     \item J. Cserti 2000.  \dQuote{Application of the lattice Green's
-      function for calculating the resistance of an infinte network of
+      function for calculating the resistance of an infinite network of
       resistors}, \emph{American Journal of Physics}, volume 68, number 10,
     p896-906
     

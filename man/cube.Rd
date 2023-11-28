@@ -39,7 +39,7 @@ icosahedron(x=1)
   \eqn{R_{23}}{R_23}, \eqn{R_{26}}{R_26}, \eqn{R_{34}}{R_34},
   \eqn{R_{37}}{R_37}, \eqn{R_{48}}{R_48}, \eqn{R_{56}}{R_56},
   \eqn{R_{58}}{R_58}, \eqn{R_{67}}{R_67}, \eqn{R_{78}}{R_78} (here
-  \eqn{R_{ij}}{R_ij} is the resistancd between node \eqn{i}{i}  and
+  \eqn{R_{ij}}{R_ij} is the resistance between node \eqn{i}{i}  and
   \eqn{j}{j}).  This series is obtainable by reading the rows given by
   \code{platonic("cube")}.  The pattern is general: edges are ordered
   first by the row number \eqn{i}, then column number \eqn{j}.
