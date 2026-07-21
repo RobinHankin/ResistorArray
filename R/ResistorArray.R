@@ -2,15 +2,18 @@
 function (x.offset, y.offset, rows.of.resistors, cols.of.resistors, 
     give.pots = FALSE) 
 {
+
+    get.1d.index <- function(rownum,colnum,R,C){(colnum-1)*R + rownum}
+
     total.n.resistors <- rows.of.resistors * cols.of.resistors
     A <- makefullmatrix(rows.of.resistors, cols.of.resistors)
     current.in.x <- cols.of.resistors%/%2
     current.in.y <- rows.of.resistors%/%2
     current.out.x <- current.in.x + x.offset
     current.out.y <- current.in.y + y.offset
-    current.in.1d <- .get.1d.index(current.in.y, current.in.x, 
+    current.in.1d <- get.1d.index(current.in.y, current.in.x, 
         rows.of.resistors, cols.of.resistors)
-    current.out.1d <- .get.1d.index(current.out.y, current.out.x, 
+    current.out.1d <- get.1d.index(current.out.y, current.out.x, 
         rows.of.resistors, cols.of.resistors)
     if (give.pots) {
         return(matrix(resistance(A, current.in.1d, current.out.1d, 
@@ -92,11 +95,6 @@ function (x = 1)
     out <- out + t(out)
     diag(out) <- -apply(out, 2, sum)
     return(out)
-}
-
-".get.1d.index" <- function(rownum, colnum, R, C)
-{
-    (colnum - 1) * R + rownum
 }
 
 "icosahedron" <-
