@@ -49,7 +49,7 @@ resistance(A, earth.node, input.node, current.input.vector=NULL, give.pots = FAL
 \seealso{\code{\link{array.resistance}}}
 \references{
   \itemize{
-    \item B. Bollob\'{a}s, 1998.  \emph{Modern Graph Theory}.  Springer.
+    \item B. Bollobas, 1998.  \emph{Modern Graph Theory}.  Springer.
     
     \item F. Y. Wu, 2004.  \dQuote{Theory of resistor networks: the two
       point resistance}, \emph{Journal of Physics A}, volume 37, pp6653-6673

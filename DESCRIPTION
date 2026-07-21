@@ -1,10 +1,9 @@
 Package: ResistorArray
-Version: 1.0-32
-Date: 2019-01-30
+Version: 1.0-33
 Title: Electrical Properties of Resistor Networks
 Description: Electrical properties of resistor networks using matrix methods.
 Authors@R: person(given=c("Robin", "K. S."), family="Hankin", role = c("aut","cre"), email="hankin.robin@gmail.com", comment = c(ORCID = "0000-0001-5982-0415"))
-URL: https://github.com/RobinHankin/ResistorArray.git
+URL: https://github.com/RobinHankin/ResistorArray/
 BugReports: https://github.com/RobinHankin/ResistorArray/issues
 License: GPL-2
-
+Maintainer: Robin K. S. Hankin <hankin.robin@gmail.com>

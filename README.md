@@ -5,13 +5,10 @@ The ResistorArray package: electrical properties of resistor arrays
 
 <img src="man/figures/ResistorArray.png" width = "150" align="right" />
 
-[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/ResistorArray?color=green)](https://cran.r-project.org/package=ResistorArray)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/ResistorArray?color=green)](https://cran.r-project.org/package=ResistorArray)
 ![](https://cranlogs.r-pkg.org/badges/grand-total/ResistorArray?color=green)
 ![](https://cranlogs.r-pkg.org/badges/ResistorArray?color=green)
 ![](https://cranlogs.r-pkg.org/badges/last-week/ResistorArray?color=green)
-[![Rdoc](https://www.rdocumentation.org/badges/version/ResistorArray)](http://www.rdocumentation.org/packages/ResistorArray)
-
-[![saythanks](https://img.shields.io/badge/say-thanks-ff69b4.svg)](https://saythanks.io/to/RobinHankin)
 
 ------------------------------------------------------------------------
 
